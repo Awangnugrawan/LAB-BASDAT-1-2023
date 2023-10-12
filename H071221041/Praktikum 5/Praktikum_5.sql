@@ -33,7 +33,7 @@ JOIN employees e
 ON c.salesRepEmployeeNumber = e.employeeNumber
 WHERE MONTH (paymentdate) = 11
 ORDER BY amount DESC
-LIMIT 1
+LIMIT 1 
 
 ##2c
 SELECT c.customerName, p.productName
@@ -75,10 +75,23 @@ USING (customernumber)
 WHERE c.customerName = 'giftsforhim.com'
 
 #no 4
-##4a
 SELECT CODE, NAME, LifeExpectancy
 FROM country
-WHERE CODE LIKE 'c%k' AND LifeExpectancy IS NOT NULL 
- 
+WHERE CODE LIKE 'c%k' AND LifeExpectancy IS NOT NULL
 
+#soal tambahan 1 dan 2
+##no 1
+SELECT c.customerName, c.country, CONCAT (e.firstName, ' ', e.lastName) AS 'nama lengkap'
+FROM customers c
+JOIN employees e
+ON c.salesRepEmployeeNumber = e.employeeNumber
+WHERE LEFT (c.country , 1) NOT IN ('a', 'i', 'u', 'e', 'o')
 
+##no 2
+SELECT p.productName, DAY (orderdate) AS 'tanggal', MONTH (orderdate) AS 'bulan', YEAR (orderdate) AS 'tahun'
+FROM orders o
+JOIN orderdetails od
+USING (ordernumber)
+JOIN products p
+USING (productcode)
+WHERE MONTH (orderdate) in ('2', '4', '6', '8', '10', '12') AND p.productName LIKE '200%'
