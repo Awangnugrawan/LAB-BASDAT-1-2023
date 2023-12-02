@@ -104,9 +104,9 @@ AND LEFT(c.customerName, 1) IN ('A', 'I', 'U', 'E', 'O')
 AND MONTH(o.orderDate) % 2 <> 0
 GROUP BY c.customerName
 HAVING SUM(DATEDIFF(o.shippedDate, o.orderDate)) > 10*(SELECT AVG(total) FROM (SELECT SUM(DATEDIFF(o.shippedDate, o.orderDate)) AS total
-																					  				 FROM orders AS o
-																									 JOIN customers USING (customerNumber)
-																									 GROUP BY customerName)AS average)
+																					  				    FROM orders AS o
+																									    JOIN customers USING (customerNumber)
+																									    GROUP BY customerName)AS average)
 )
 
 UNION
@@ -125,7 +125,7 @@ AND LEFT(c.customerName, 1) NOT IN ('A', 'I', 'U', 'E', 'O')
 AND MONTH(o.orderDate) % 2 = 0
 GROUP BY c.customerName
 HAVING SUM(DATEDIFF(o.shippedDate, o.orderDate)) > 2*(SELECT AVG(total) FROM (SELECT SUM(DATEDIFF(o.shippedDate, o.orderDate)) AS total
-																					  				 FROM orders AS o
-																									 JOIN customers USING (customerNumber)
-																									 GROUP BY customerName)AS average)
+																					  				   FROM orders AS o
+																									   JOIN customers USING (customerNumber)
+																									   GROUP BY customerName)AS average)
 )
